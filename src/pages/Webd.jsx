@@ -1,43 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Main from '../components/section/Main'
 
-import { todayText } from '../data/today'
-import { Link } from 'react-router-dom'
+import VideoCards from '../components/videos/VideoCards'
+import { webdText } from '../data/webd'
 
-const Today = () => {
+const Webd = () => {
+    const [loading, setLoading] = useState(true); 
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 300);
+    }, []);
+
+    const webdPageClass = loading ? 'isLoading' : 'isLoaded';
+
     return (
         <Main 
-            title = "추천 영상"
-            description="오늘의 추천 유튜브 영상입니다.">
-            
-            <section id='todayPage'>
-                <h2>🥰 오늘의 추천 영상입니다.</h2>
+            title = "웹디자인 기능사"
+            description="웹디자인 기능사 튜토리얼 강의입니다.">
 
-                {todayText.map((today, key) => (
-                    <div className='today__inner' key={key}>
-                        <div className='today__thumb play__icon'>
-                            <Link to={today.page}>
-                                <img src={today.img} alt={today.title} />
-                            </Link>
-                        </div>
-                        <div className='today__text'>
-                            <span className='today'>today!</span>
-                            <h3 className='title'>
-                                <Link to={today.page}>{today.title}</Link>
-                            </h3>
-                            <p className='desc'>{today.desc}</p>
-                            <div className='info'>
-                                <span className='author'>
-                                    <Link to={`/channel/${today.channelId}`}>{today.author}</Link>
-                                </span>
-                                <span className='date'>{today.date}</span>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+            <section id='webdPage' className={webdPageClass}>
+                <h2>😄 웹디자인기능사 한번에 따자!</h2>
+                <div className="video__inner">
+                    <VideoCards videos={webdText} />
+                </div>
             </section>
         </Main>
     )
 }
 
-export default Today
+export default Webd
